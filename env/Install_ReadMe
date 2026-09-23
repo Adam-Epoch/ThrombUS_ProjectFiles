@@ -1,0 +1,34 @@
+'''The version of conda used to install all libraries'''
+conda --version
+      conda 24.11.3
+
+'''The version of python used for each env to function'''
+Python --version
+      BenchSim_WallClock = Python 3.10.20
+      MobileNetV1 = Python 3.11.15
+      aug_monai_fl_ls = Python 3.10.20
+      aug_env = Python = 3.10.20
+
+'''Which env maps to which project file'''
+Env MobileNetV1
+      Echonous_train_acep_BinaryAdaption(MobileNetV1).py        # Adaption of template to test EchoNous's mobileNetV1 model as binary classifier
+Env BenchSim_WallClock
+      benchmark_edge_sim_wall_clock_V2.py                       # Tests each models excecution speed over the testing dataset of all 5 model folds
+Env aug_env
+      main_train_acep_V3.py                                     # Default code template for ACEP grading code
+      main_train_acep_v3_aug.py                                 # Default code template for ACEP grading code using augmented dataset
+      main_train_acep_v3_aug_FL.py                              # Ternary classifier with torchvisions sigmoid focal loss (no label smoothing)
+      main_train_acep_binary_TorchVision_aug+FL.py              # Binary classifier with torchvisions sigmoid focal loss (no label smoothing)
+      main_train_acep_binary_TorchVision_aug_CE.py              # Binary classifier with torchvisions cross entropy
+
+Env aug_monai_fl_ls
+      main_train_acep_v3_aug_MonaiSFL.py                        # Ternary classifier with Monais label smoothed focal loss (sigmoid & softmax)
+      main_train_acep_V3_aug_MonaiSFL_binary.py                 # Binary classifier with Monais label smoothed focal loss (sigmoid & softmax)
+
+==== Initialisation instructions ====
+In Anaconda prompt:
+  1. cd path/to/example.yml
+  2. conda env create -f example.yml
+  3. conda activate example_env
+
+env names can be alter pre-construction by editing the name: field at the top of each .yml
