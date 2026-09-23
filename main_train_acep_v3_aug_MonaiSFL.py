@@ -207,9 +207,9 @@ class FocalLoss(nn.Module):
     """
     MONAI's FocalLoss w/ label smoothing
 
-    use_softmax=False produces the torchvision sigmoid fl behaviour when 
-    use_softmax=True switches to softmax focal loss, the principled
-    label_smoothing=0: each grade is treated as an independent binary task. 
+    use_softmax=False produces the torchvision sigmoid fl behaviour 
+    use_softmax=True switches to softmax focal loss
+    label_smoothing=0: each grade is treated as as rigid with 0 overlap 
 
     Under the softmax branch, MONAI interprets a scalar `alpha` as a 
     foreground/background weight (class 0 is weighted: 1 - alpha, the rest alpha), giving class 0 privilage.
