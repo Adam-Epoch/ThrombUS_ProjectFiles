@@ -227,20 +227,14 @@ def get_model(model_name, pretrained=True, num_classes=NUM_CLASSES):
 
 class FocalLoss(nn.Module):
     """
-    MONAI's FocalLoss w/ label smoothing, binary (2-class) softmax variant.
+    MONAI's FocalLoss w/ label smoothing
 
-    use_softmax=True gives softmax focal loss over the two mutually exclusive
-    classes, which is the correct formulation for a single-label binary task.
+    use_softmax=False produces the torchvision sigmoid fl behaviour 
+    use_softmax=True switches to softmax focal loss
+    label_smoothing=0: each grade is treated as as rigid with 0 overlap 
 
-    Under the softmax branch MONAI interprets a scalar `alpha` as a
-    foreground/background weight: class 0 is weighted 1 - alpha and every
-    other class alpha. With NUM_CLASSES=2 that means negatives get 0.75 and
-    positives get 0.25 - i.e. the negative class is privileged. Revisit
-    FOCAL_ALPHA once the binary class balance is known.
-
-    Label smoothing divides by num_classes, so LABEL_SMOOTHING=0.1 now yields
-    soft targets of 0.95 / 0.05 (vs 0.92 / 0.02 in the 5-class script); the
-    hyperparameter is not directly comparable across the two setups.
+    Under the softmax branch, MONAI interprets a scalar `alpha` as a 
+    foreground/background weight (class 0 is weighted: 1 - alpha, the rest alpha), giving class 0 privilage.
     """
 
     def __init__(self, alpha=0.25, gamma=2.0, num_classes=NUM_CLASSES,
